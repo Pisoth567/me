@@ -5,6 +5,12 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+    --font-english: "Redaction 10",
+                  var(--font-koh-santepheap),
+                  serif;
+
+  --font-khmer: var(--font-koh-santepheap),
+                serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans);
@@ -127,4 +133,17 @@
   html {
     @apply font-sans;
   }
+}
+
+
+/* Default font with Khmer fallback */
+body {
+  font-family:
+    "Redaction 10",
+    var(--font-koh-santepheap),
+    serif;
+}
+
+:lang(km) {
+  font-family: var(--font-koh-santepheap), serif;
 }
