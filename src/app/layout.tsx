@@ -27,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={kohSantepheap.variable}>
+    <html lang="en" className={`dark ${kohSantepheap.variable}`}>
       <body className="antialiased">
         {children}
       </body>
