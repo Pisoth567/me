@@ -5,9 +5,22 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-    --font-english: "Redaction 10",
-                  var(--font-koh-santepheap),
-                  serif;
+   --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+
+  --color-border: var(--border);
+  --color-secondary-hover: var(--secondary-hover);
+  --color-on-secondary: var(--on-secondary);
+
+  --font-english: "Redaction 10",
+                var(--font-koh-santepheap),
+                serif;
 
   --font-khmer: var(--font-koh-santepheap),
                 serif;
@@ -55,6 +68,25 @@
 }
 
 :root {
+  color-scheme: dark;
+
+    /* Brand Colors */
+  --primary: #0F3040;
+  --secondary: #FF4C29;
+
+   /* Background Colors */
+  --background: var(--primary);
+  --surface: #164154;
+
+   /* Background Colors */
+  --background: var(--primary);
+  --surface: #164154;
+
+    /* UI Colors */
+  --border: #315464;
+  --secondary-hover: #FF6A4C;
+  --on-secondary: #071A22;
+
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -128,7 +160,8 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    background-color: var(--background);
+    color: var(--foreground);
   }
   html {
     @apply font-sans;

@@ -5,7 +5,7 @@ import { motion, useReducedMotion } from "framer-motion";
 
 type Position = { left: number; width: number; opacity: number };
 
-const tabs = ["Home", "Pricing", "Features", "Docs", "Blog"];
+const tabs = ["about", "experience", "skills", "projects", "education", "contact"];
 
 function measure(tab: HTMLLIElement): Position {
   return { left: tab.offsetLeft, width: tab.getBoundingClientRect().width, opacity: 1 };
@@ -45,7 +45,7 @@ export const SlideTabs = () => {
       onBlur={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget)) resetPosition();
       }}
-      className="relative mx-auto flex w-fit rounded-full border-2 border-black bg-white p-1 dark:border-white dark:bg-neutral-800"
+      className="relative mx-auto flex w-fit rounded-full border border-black bg-white p-1 dark:border-white dark:bg-neutral-800"
     >
       {tabs.map((tab, i) => (
         <li
