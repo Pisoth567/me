@@ -6,8 +6,8 @@ export const metadata: Metadata = aboutContent.en.seo;
 
 export default function AboutPage() {
   return (
-    <main className="light min-h-screen bg-background text-foreground">
-      <AboutSection content={aboutContent.en} />
+    <main className="about-page min-h-screen">
+      <AboutSection content={aboutContent.en} pageLayout />
     </main>
   );
 }

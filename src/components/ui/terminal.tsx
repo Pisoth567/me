@@ -24,11 +24,11 @@ const linePrefix: Record<NonNullable<TerminalLine["type"]>, string> = {
 };
 
 const lineColor: Record<NonNullable<TerminalLine["type"]>, string> = {
-  error: "text-red-500",
+  error: "text-red-700 dark:text-red-400",
   input: "text-primary",
   output: "text-foreground/90",
-  system: "text-amber-500",
-  success: "text-green-500",
+  system: "text-amber-800 dark:text-amber-400",
+  success: "text-green-700 dark:text-green-400",
 };
 
 const variantBorder: Record<string, string> = {
@@ -120,7 +120,7 @@ export function Terminal({
       {...props}
     >
       {/* Scanline overlay */}
-      <div className="pointer-events-none absolute inset-0 bg-[repeating-linear-gradient(0deg,transparent,transparent_2px,rgba(0,0,0,0.03)_2px,rgba(0,0,0,0.03)_4px)]" />
+      <div className="pointer-events-none absolute inset-0 hidden bg-[repeating-linear-gradient(0deg,transparent,transparent_2px,rgba(0,0,0,0.03)_2px,rgba(0,0,0,0.03)_4px)] dark:block" />
 
       {/* Scan sweep */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">

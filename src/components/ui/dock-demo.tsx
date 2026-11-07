@@ -114,7 +114,7 @@ export function DockDemo() {
           {Object.entries(DATA.contact.social).map(([name, social]) => (
             <DockIcon key={name}>
               <DockLink href={social.url} label={social.name}>
-                <social.icon className="size-4" aria-hidden="true" />
+                <social.icon className="size-6" aria-hidden="true" />
               </DockLink>
             </DockIcon>
           ))}

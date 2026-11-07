@@ -9,14 +9,14 @@ export const metadata: Metadata = portfolio.seo;
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    <main className="min-h-screen text-foreground">
       <div className="fixed inset-x-0 top-5 z-50 flex justify-center">
         <NavBarDemo />
       </div>
 
       <HeroSection />
 
-      <div id="about" className="flex min-h-screen items-center scroll-mt-20">
+      <div id="about" className="flex min-h-[50%] items-center scroll-mt-20">
         <AboutSection content={aboutContent.en} />
       </div>
 

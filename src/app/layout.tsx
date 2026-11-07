@@ -28,8 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={kohSantepheap.variable}>
-      <body className="antialiased">{children}</body>
+      <body className="site-background antialiased">{children}</body>
     </html>
   );
 }
-
