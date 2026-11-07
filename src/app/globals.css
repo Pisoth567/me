@@ -1,11 +1,9 @@
 @import "tailwindcss";
-@import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --color-navbar: var(--navbar);
   --color-surface: var(--surface);
   --color-secondary-hover: var(--secondary-hover);
   --color-on-secondary: var(--secondary-foreground);
@@ -52,45 +50,102 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
-}
+  --animate-blink-cursor: blink-cursor 1.2s step-end infinite;
+  @keyframes blink-cursor {
+  0%, 49% {
+    opacity: 1;
+    }
+  50%, 100% {
+    opacity: 0;
+    }
+  }
+  --animate-shiny-text: shiny-text 8s infinite
+;
+  @keyframes shiny-text {
+  0%, 90%, 100% {
+    background-position: calc(-100% - var(--shiny-width)) 0;}
+  30%, 60% {
+    background-position: calc(100% + var(--shiny-width)) 0;}}
+  --animate-aurora: aurora 8s ease-in-out infinite alternate;
+  @keyframes aurora {
+  0% {
+    background-position: 0% 50%;
+    transform: rotate(-5deg) scale(0.9);}
+  25% {
+    background-position: 50% 100%;
+    transform: rotate(5deg) scale(1.1);}
+  50% {
+    background-position: 100% 50%;
+    transform: rotate(-3deg) scale(0.95);}
+  75% {
+    background-position: 50% 0%;
+    transform: rotate(3deg) scale(1.05);}
+  100% {
+    background-position: 0% 50%;
+    transform: rotate(-5deg) scale(0.9);}}}
 
-:root {
-  color-scheme: dark;
-  --primary: #000000;
-  --primary-foreground: #FFFFFF;
-  --secondary: #FF4C29;
-  --secondary-foreground: #071A22;
-  --secondary-hover: #FF6A4C;
-  --background: #000000;
-  --foreground: #FFFFFF;
-  --navbar: #0F044C;
-  --surface: #111111;
-  --card: var(--surface);
-  --card-foreground: var(--foreground);
-  --popover: var(--surface);
-  --popover-foreground: var(--foreground);
-  --muted: var(--surface);
-  --muted-foreground: #B8B8C5;
-  --accent: var(--secondary);
-  --accent-foreground: var(--secondary-foreground);
-  --destructive: #FF8070;
-  --border: #547888;
+:root,
+.light {
+  color-scheme: light;
+  --background: #FBFCF8;
+  --foreground: #17212B;
+  --primary: #005A9C;
+  --primary-foreground: #17212B;
+  --secondary: #364356;
+  --secondary-foreground: #FFFFFF;
+  --secondary-hover: #293548;
+  --accent: #EFFDF4;
+  --accent-foreground: #17212B;
+  --muted: #F1F5F9;
+  --muted-foreground: #526074;
+  --destructive: #EE4646;
+  --border: #E1E7EF;
   --input: var(--border);
-  --ring: var(--secondary);
-  --chart-1: var(--secondary);
-  --chart-2: #FFAD99;
-  --chart-3: #7AB8D1;
-  --chart-4: #B8CBD3;
-  --chart-5: #F4F7F8;
-  --radius: 0.625rem;
+  --ring: #527D10;
+  --card: #FFFFFF;
+  --card-foreground: #17212B;
+  --popover: var(--card);
+  --popover-foreground: var(--card-foreground);
+  --surface: var(--card);
+  --radius: 1rem;
+  --chart-1: #527D10;
+  --chart-2: #364356;
+  --chart-3: #28765B;
+  --chart-4: #75642B;
+  --chart-5: #526074;
   --sidebar: var(--background);
   --sidebar-foreground: var(--foreground);
-  --sidebar-primary: var(--secondary);
-  --sidebar-primary-foreground: var(--secondary-foreground);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
   --sidebar-accent: var(--accent);
   --sidebar-accent-foreground: var(--accent-foreground);
   --sidebar-border: var(--border);
   --sidebar-ring: var(--ring);
+}
+
+.dark {
+  color-scheme: dark;
+  --background: #111810;
+  --foreground: #F3F6EE;
+  --primary: #AEF340;
+  --primary-foreground: #17212B;
+  --secondary: #364356;
+  --secondary-foreground: #FFFFFF;
+  --secondary-hover: #43536A;
+  --accent: #223322;
+  --accent-foreground: #E6F4DE;
+  --muted: #202A24;
+  --muted-foreground: #B5C2B7;
+  --destructive: #FF7777;
+  --border: #39473C;
+  --card: #19221B;
+  --card-foreground: #F3F6EE;
+  --ring: #AEF340;
+  --chart-1: #AEF340;
+  --chart-2: #A7B8D4;
+  --chart-3: #80D5AF;
+  --chart-4: #D5C584;
+  --chart-5: #B5C2B7;
 }
 
 @layer utilities {
@@ -144,9 +199,9 @@
   }
   html {
     @apply font-sans;
+    scroll-behavior: smooth;
   }
 }
-
 
 /* Default font with Khmer fallback */
 body {
@@ -159,3 +214,109 @@ body {
 :lang(km) {
   font-family: var(--font-koh-santepheap), serif;
 }
+
+.hero-terminal {
+  --card: #1E2720;
+  --foreground: #F5F7F5;
+  --primary: #AEF340;
+  background-color: var(--card);
+  color: var(--foreground);
+  color-scheme: dark;
+}
+
+.developer-terminal {
+  --terminal-surface: #1E2720;
+  --terminal-text: #F5F7F5;
+  --terminal-command: #AEF340;
+  --terminal-border: #465E48;
+  --spotlight-surface: var(--terminal-surface);
+  --spotlight-color: var(--terminal-command);
+  --spotlight-border: var(--terminal-border);
+  --border: var(--terminal-border);
+  color: var(--terminal-text);
+  color-scheme: dark;
+}
+
+.spotlight-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid var(--spotlight-border, var(--border));
+  border-radius: 1rem;
+  background: var(--spotlight-surface, var(--card));
+}
+
+.spotlight-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    280px circle at var(--spotlight-x, 50%) var(--spotlight-y, 50%),
+    color-mix(in srgb, var(--spotlight-color, var(--primary)) 10%, transparent),
+    transparent 75%
+  );
+  opacity: 0;
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .spotlight-card {
+    transition: border-color 220ms ease;
+  }
+
+  .spotlight-card::before {
+    transition: opacity 220ms ease;
+  }
+
+  .spotlight-card:hover {
+    border-color: color-mix(in srgb, var(--spotlight-color, var(--primary)) 35%, var(--spotlight-border, var(--border)));
+  }
+
+  .spotlight-card:hover::before {
+    opacity: 1;
+  }
+}
+
+.hero-icon-tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  white-space: nowrap;
+  border-radius: 6px;
+  padding: 4px 8px;
+  background: #364356;
+  color: #FFFFFF;
+  font-size: 12px;
+  line-height: 20px;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.hero-icon-link:focus-visible .hero-icon-tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero-icon-link:hover .hero-icon-tooltip {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .hero-icon-link svg {
+    transition: transform 180ms ease;
+  }
+
+  .hero-icon-link:hover svg,
+  .hero-icon-link:focus-visible svg {
+    transform: scale(1.3);
+  }
+}
+  ::view-transition-old(root), ::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;}

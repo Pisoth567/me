@@ -491,7 +491,6 @@ export function DitherField({
   // The GL context only exists while the field is near the viewport, so a
   // page with many fields stays under the browser's cap of live contexts.
   const [near, setNear] = useState(false)
-  const fallbackRef = useRef<HTMLDivElement>(null)
   // Bumped when the browser restores a lost WebGL context.
   const [contextKey, setContextKey] = useState(0)
   // Read every frame, so changing them never rebuilds the GL state.
@@ -521,14 +520,7 @@ export function DitherField({
     const layer = layerRef.current
     if (!near || !root || !layer) return
 
-    const fallback = fallbackRef.current
-    if (!fallback) return
-
     const canvas = document.createElement("canvas")
-    const showFallback = (show: boolean) => {
-      fallback.hidden = !show
-      canvas.hidden = show
-    }
     canvas.className =
       "absolute top-0 left-0 opacity-0 transition-opacity duration-700 [image-rendering:pixelated] data-[ready]:opacity-100 motion-reduce:transition-none"
     const gl = canvas.getContext("webgl2", {
@@ -549,10 +541,10 @@ export function DitherField({
       : null
     if (!gl || !renderer) {
       gl?.getExtension("WEBGL_lose_context")?.loseContext()
-      showFallback(true)
+      root.dataset.fallback = ""
       return
     }
-    showFallback(false)
+    delete root.dataset.fallback
     // A field that comes back into view skips the fade-in.
     if (shown.current) canvas.dataset.ready = ""
     layer.appendChild(canvas)
@@ -666,7 +658,7 @@ export function DitherField({
             sync()
           },
           () => {
-            if (!disposed) showFallback(true)
+            if (!disposed) root.dataset.fallback = ""
           }
         )
       : null
@@ -715,7 +707,7 @@ export function DitherField({
       event.preventDefault()
       lost = true
       sync()
-      showFallback(true)
+      root.dataset.fallback = ""
     }
     const onRestored = () => setContextKey((key) => key + 1)
 
@@ -798,21 +790,19 @@ export function DitherField({
   return (
     <div
       ref={rootRef}
-      className={cn("relative isolate overflow-hidden", className)}
+      className={cn("group/dither relative isolate overflow-hidden", className)}
       {...props}
     >
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 hidden group-data-[fallback]/dither:block"
+        style={fallbackStyle}
+      />
       <div
         ref={layerRef}
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 -z-10"
-      >
-        <div
-          ref={fallbackRef}
-          hidden
-          className="absolute inset-0"
-          style={fallbackStyle}
-        />
-      </div>
+      />
       {children}
     </div>
   )
