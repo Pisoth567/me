@@ -148,7 +148,7 @@ export function MovingBorderFrame({ children, className }: React.HTMLAttributes<
       {children}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 rounded-[inherit] p-[2px]"
+        className="pointer-events-none absolute inset-0 rounded-[inherit] p-0.5"
         style={{
           maskImage: "linear-gradient(#fff 0 0), linear-gradient(#fff 0 0)",
           maskClip: "content-box, border-box",

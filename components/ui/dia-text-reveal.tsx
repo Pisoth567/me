@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useEffectEvent, useMemo, useRef, useState } from "react"
 import {
   animate,
   motion,
@@ -138,34 +138,15 @@ export function DiaTextReveal({
   fixedWidth = false,
   ...props
 }: DiaTextRevealProps) {
-  const texts = Array.isArray(text) ? text : [text]
+  const texts = useMemo(() => (Array.isArray(text) ? text : [text]), [text])
   const isMulti = texts.length > 1
   const prefersReducedMotion = useReducedMotion()
 
   const spanRef = useRef<HTMLSpanElement>(null)
-  const optsRef = useRef({
-    colors,
-    textColor,
-    duration,
-    delay,
-    repeat,
-    repeatDelay,
-    texts,
-  })
-  optsRef.current = {
-    colors,
-    textColor,
-    duration,
-    delay,
-    repeat,
-    repeatDelay,
-    texts,
-  }
-
   const indexRef = useRef(0)
   const hasPlayedRef = useRef(false)
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined)
-  const playRef = useRef<() => void>(null!)
+  const playRef = useRef<() => void>(() => {})
   const stopRef = useRef<(() => void) | null>(null)
 
   const [activeIndex, setActiveIndex] = useState(0)
@@ -174,7 +155,7 @@ export function DiaTextReveal({
   const sweepPos = useMotionValue(SWEEP_START)
 
   const backgroundImage = useTransform(sweepPos, (pos) =>
-    buildGradient(pos, optsRef.current.colors, optsRef.current.textColor)
+    buildGradient(pos, colors, textColor)
   )
 
   const isInView = useInView(spanRef, { once, amount: 0.1 })
@@ -183,11 +164,9 @@ export function DiaTextReveal({
     const el = spanRef.current
     if (!el || !isMulti) return
     setMeasuredWidths(measureWidths(el, texts))
-  }, [Array.isArray(text) ? text.join("\0") : text])
+  }, [isMulti, texts])
 
-  playRef.current = () => {
-    const { duration, delay, repeat, repeatDelay, texts } = optsRef.current
-
+  const play = useEffectEvent(() => {
     sweepPos.set(SWEEP_START)
 
     const controls = animate(sweepPos, SWEEP_END, {
@@ -206,7 +185,11 @@ export function DiaTextReveal({
     })
 
     stopRef.current = () => controls.stop()
-  }
+  })
+
+  useEffect(() => {
+    playRef.current = play
+  })
 
   useEffect(() => {
     if (prefersReducedMotion) {
@@ -216,7 +199,7 @@ export function DiaTextReveal({
     if (startOnView && !isInView) return
     if (once && hasPlayedRef.current) return
     hasPlayedRef.current = true
-    playRef.current()
+    play()
 
     return () => {
       stopRef.current?.()

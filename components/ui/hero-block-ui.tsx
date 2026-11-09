@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowDown } from "lucide-react";
 
 import { AnimatedShinyTextDemo } from "@/src/components/ui/animated-shiny-text-demo";
 import { DiaTextRevealDemo3 } from "@/src/components/ui/dia-text-reveal-demo-3";

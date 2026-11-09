@@ -795,7 +795,7 @@ export function DitherField({
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 hidden group-data-[fallback]/dither:block"
+        className="pointer-events-none absolute inset-0 hidden group-data-fallback/dither:block"
         style={fallbackStyle}
       />
       <div
