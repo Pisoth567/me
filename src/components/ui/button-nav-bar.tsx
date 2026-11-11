@@ -26,7 +26,10 @@ const navItems = [
 
 const MOBILE_LABEL_WIDTH = 72;
 
-type BottomNavBarProps = {
+export type BottomNavBarProps = {
+  labels?: Record<"home" | "about" | "experience" | "skills" | "projects" | "education", string>;
+  locale?: "en" | "km";
+  onLocaleChange?: () => void;
   className?: string;
   defaultIndex?: number;
   stickyBottom?: boolean;
@@ -34,6 +37,9 @@ type BottomNavBarProps = {
 
 export function BottomNavBar({
   className,
+  labels,
+  locale = "en",
+  onLocaleChange,
   defaultIndex = 0,
   stickyBottom = false,
 }: BottomNavBarProps) {
@@ -77,6 +83,7 @@ export function BottomNavBar({
     >
       <div className="flex min-w-0 items-center gap-1 overflow-x-auto">
       {navItems.map((item, idx) => {
+        const label = labels?.[item.label.toLowerCase() as keyof NonNullable<BottomNavBarProps["labels"]>] ?? item.label;
         const Icon = item.icon;
         const isActive = activeIndex === idx;
 
@@ -103,7 +110,7 @@ export function BottomNavBar({
               window.history.pushState(null, "", `#${id}`);
               section.scrollIntoView({ behavior: "smooth", block: "start" });
             }}
-            aria-label={item.label}
+            aria-label={label}
             aria-current={isActive ? "location" : undefined}
           >
             <Icon
@@ -132,15 +139,25 @@ export function BottomNavBar({
                   "font-medium text-xs whitespace-nowrap select-none transition-opacity duration-200 overflow-hidden text-ellipsis text-[clamp(0.625rem,0.5263rem+0.5263vw,1rem)] leading-[1.9]",
                   isActive ? "text-secondary dark:text-primary" : "opacity-0",
                 )}
-                title={item.label}
+                title={label}
               >
-                {item.label}
+                {label}
               </span>
             </motion.div>
           </motion.a>
         );
       })}
       </div>
+      {onLocaleChange && (
+        <button
+          type="button"
+          onClick={onLocaleChange}
+          aria-label={locale === "en" ? "Switch to Khmer" : "Switch to English"}
+          className="shrink-0 rounded-full px-2 py-2 text-xs font-medium text-foreground hover:bg-muted"
+        >
+          {locale === "en" ? "ខ្មែរ" : "EN"}
+        </button>
+      )}
       <div className="shrink-0 border-l border-border pl-1">
         <AnimatedThemeTogglerDemo />
       </div>

@@ -4,7 +4,7 @@ import React from "react"
 import Link from "next/link"
 import { CalendarIcon, MailIcon } from "lucide-react"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { TelegramIcon } from "@hugeicons/core-free-icons"
+import { Facebook01Icon, TelegramIcon } from "@hugeicons/core-free-icons"
 
 import { Tooltip } from "@base-ui/react/tooltip"
 import { Dock, DockIcon } from "@/components/ui/dock"
@@ -25,6 +25,9 @@ const Icons = {
   ),
   telegram: (props: IconProps) => (
     <HugeiconsIcon icon={TelegramIcon} {...props} />
+  ),
+  facebook: (props: IconProps) => (
+    <HugeiconsIcon icon={Facebook01Icon} {...props} />
   ),
   youtube: (props: IconProps) => (
     <svg
@@ -73,6 +76,11 @@ const DATA = {
         url: "mailto:pisoth887@gmail.com",
         icon: Icons.email,
       },
+      Facebook: {
+        name: "Facebook",
+        url: "https://www.facebook.com/share/19mCJVqK9L/",
+        icon: Icons.facebook,
+      },
     },
   },
 }
@@ -81,15 +89,17 @@ function DockLink({
   href,
   label,
   children,
+  newTab = false,
 }: {
   href: string
   label: string
   children: React.ReactNode
+  newTab?: boolean
 }) {
   return (
     <Tooltip.Root>
       <Tooltip.Trigger
-        render={<Link href={href} />}
+        render={<Link href={href} target={newTab ? "_blank" : undefined} rel={newTab ? "noopener noreferrer" : undefined} />}
         aria-label={label}
         className="inline-flex size-12 items-center justify-center rounded-full transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
       >
@@ -113,7 +123,7 @@ export function DockDemo() {
         <Dock direction="middle">
           {Object.entries(DATA.contact.social).map(([name, social]) => (
             <DockIcon key={name}>
-              <DockLink href={social.url} label={social.name}>
+              <DockLink href={social.url} label={social.name} newTab={name === "Facebook"}>
                 <social.icon className="size-6" aria-hidden="true" />
               </DockLink>
             </DockIcon>

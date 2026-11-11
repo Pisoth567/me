@@ -1,3 +1,11 @@
+import Link from "next/link";
+import { ArrowLeft, ArrowUpRight, CodeXml } from "lucide-react";
+import { projects } from "@/src/data/content";
+import { pageMetadata } from "@/src/lib/seo";
+const Github = CodeXml;
+
+export const metadata = pageMetadata("Projects | Net Pisoth", "Explore Net Pisoth’s projects: ICHECK, an ISTAD final team project, and Generate Description AI for English and Khmer product descriptions.", "/projects");
+
 export default function ProjectsPage() {
-  return <main className="min-h-screen" />;
+  return <main className="site-container min-h-screen py-28 sm:py-36"><Link href="/#projects" className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline"><ArrowLeft className="size-4" /> Back to portfolio</Link><p className="mt-10 text-xs font-semibold tracking-[.16em] text-primary">SELECTED WORK</p><h1 className="mt-3 text-4xl font-bold tracking-tight sm:text-6xl">Projects with verified details.</h1><p className="mt-5 max-w-2xl leading-8 text-muted-foreground">This collection prioritizes accuracy over quantity. Each listed project has information and links that can be checked.</p><div className="mt-10 grid gap-5">{projects.map((project) => <article key={project.slug} className="rounded-3xl border border-border bg-card p-6 sm:p-8"><p className="text-xs font-semibold tracking-[.14em] text-primary uppercase">{project.status}</p><h2 className="mt-3 text-3xl font-bold">{project.name}</h2><p className="mt-2 text-sm text-muted-foreground">{project.category}</p><p className="mt-5 max-w-3xl leading-8 text-muted-foreground">{project.description}</p><div className="mt-6 flex flex-wrap gap-2">{project.technologies.map((technology) => <span key={technology} className="rounded-full bg-muted px-3 py-1 text-sm">{technology}</span>)}</div><div className="mt-7 flex flex-wrap gap-3"><Link href={`/projects/${project.slug}`} className="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground">Project details <ArrowUpRight className="size-4" /></Link>{project.github && <a href={project.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-xl border border-border px-4 py-3 text-sm font-semibold"><Github className="size-4" /> Source</a>}</div></article>)}</div></main>;
 }

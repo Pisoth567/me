@@ -1,5 +1,5 @@
-import BottomNavBar from './ui/button-nav-bar'
+import BottomNavBar, { type BottomNavBarProps } from './ui/button-nav-bar'
 
-export default function NavBarDemo() {
-  return <BottomNavBar />
+export default function NavBarDemo(props: BottomNavBarProps) {
+  return <BottomNavBar {...props} />
 }

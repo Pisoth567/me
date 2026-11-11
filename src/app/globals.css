@@ -224,23 +224,33 @@ body {
 }
 
 .about-page-section {
-  min-height: 100svh;
+  min-height: 70vh;
   display: grid;
   align-items: center;
 }
 
 .about-page-grid {
-  width: 100%;
-  max-width: 76rem;
   margin-inline: auto;
   display: grid;
-  align-items: center;
-  gap: 2.5rem;
-  padding: clamp(1.5rem, 4vw, 4rem);
-  border: 1px solid var(--border);
-  border-radius: calc(var(--radius) * 2.2);
+  align-items: stretch;
+  overflow: hidden;
+  padding: clamp(1rem, 2vw, 1.5rem);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  border: 1px solid color-mix(in srgb, var(--border) 75%, var(--foreground));
+  border-radius: 1.5rem;
   background: var(--card);
   color: var(--foreground);
+}
+
+.about-page-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(0.5rem, 2vw, 1.5rem);
+}
+
+.about-page-content > div {
+  max-width: 38rem;
 }
 
 .about-page-heading {
@@ -253,26 +263,33 @@ body {
 }
 
 .about-page-visual {
+  position: relative;
   width: 100%;
   min-width: 0;
+  height: clamp(18rem, 80vw, 30rem);
 }
 
 .about-page-portrait {
-  aspect-ratio: 4 / 5;
+  position: absolute;
+  inset: 0;
   width: 100%;
-  max-width: 30rem;
-  margin-inline: auto;
+  height: 100%;
   overflow: hidden;
-  border-radius: calc(var(--radius) * 1.8);
-  background: var(--muted);
+  border-radius: 1rem;
+  background: #202124;
 }
 
-@media (width >= 48rem) {
+@media (width >= 64rem) {
   .about-page-grid {
-    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
-    gap: clamp(2rem, 4vw, 4rem);
+    min-height: 38rem;
+    grid-template-columns: minmax(0, 11fr) minmax(0, 9fr);
+  }
+
+  .about-page-visual {
+    height: auto;
   }
 }
+
 
 .hero-terminal {
   --card: #FFFFFF;

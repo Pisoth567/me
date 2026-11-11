@@ -2,8 +2,7 @@
 
 import { motion } from "framer-motion";
 
-import { AnimatedShinyTextDemo } from "@/src/components/ui/animated-shiny-text-demo";
-import { DiaTextRevealDemo3 } from "@/src/components/ui/dia-text-reveal-demo-3";
+import { DiaTextReveal } from "@/components/ui/dia-text-reveal";
 import { DockDemo } from "@/src/components/ui/dock-demo";
 import TerminalDemo from "@/src/components/ui/terminal.demo";
 
@@ -20,35 +19,46 @@ export function HeroBlock() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <div>
-            <AnimatedShinyTextDemo />
-          </div>
+          <span className="inline-flex rounded-full border border-border bg-muted px-3 py-1 text-xs tracking-[0.16em] text-muted-foreground">
+            PORTFOLIO / 2026
+          </span>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
-            className="mb-6 text-5xl font-bold text-foreground md:text-7xl"
-          >
-            <DiaTextRevealDemo3 />
-          </motion.div>
+          <h1 className="@container mt-6 text-[clamp(1.75rem,5.5vw,3.75rem)] leading-[1.12] font-bold tracking-tight text-foreground lg:text-[clamp(2rem,4vw,4rem)]">
+            <span className="block">My journey in tech</span>
+            <span className="block min-h-[1.3em] text-[clamp(1rem,6.2cqw,4rem)] text-primary">
+              <DiaTextReveal
+                fixedWidth
+                repeat
+                repeatDelay={1.1}
+                text={[
+                  "Full Stack Developer",
+                  "Computer Science Student",
+                  "Software Engineer",
+                ]}
+                textColor="var(--primary)"
+                className="w-full! leading-[1.3]"
+              />
+            </span>
+          </h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
-            className="text-center mb-8 max-w-3xl text-xl text-muted-foreground md:text-2xl">
-            Crafting beautiful, performant web applications with modern technologies. Passionate about clean code and exceptional user experiences.
-          </motion.p>
+          <p className="mt-6 max-w-xl text-base leading-7 text-muted-foreground">
+            I&apos;m a Computer Science student passionate about building modern web applications. From intuitive frontend experiences to practical backend systems, I enjoy transforming ideas into useful digital solutions.
+          </p>
+
+          <ul aria-label="Technologies" className="mt-6 flex flex-wrap gap-2">
+            {["React", "Next.js", "Java", "Spring Boot", "PostgreSQL"].map((technology) => (
+              <li key={technology} className="rounded-full border border-border bg-muted px-3 py-1.5 text-sm text-foreground">
+                {technology}
+              </li>
+            ))}
+          </ul>
 
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6, duration: 0.6 }}
-            className="flex justify-center gap-4">
-
+            className="mt-7 flex justify-start">
             <DockDemo />
-            
           </motion.div>
         </motion.div>
         <div className="min-w-0">
