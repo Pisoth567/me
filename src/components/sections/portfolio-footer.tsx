@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { GithubIcon, Linkedin01Icon, TelegramIcon } from "@hugeicons/core-free-icons";
 import { content, type Locale } from "@/src/data/content";
@@ -17,7 +18,10 @@ export function PortfolioFooter({ locale = "en", contactHref = "mailto:pisoth887
     <footer lang={locale} className="site-container border-t border-border py-8 sm:py-10">
       <div className="grid items-center gap-5 text-center md:grid-cols-[1fr_auto_1fr] md:gap-6 md:text-left">
         <div className="min-w-0">
-          <p lang="en" className="text-xl font-bold tracking-[.12em] text-primary">NET PISOTH</p>
+          <div className="flex items-center justify-center gap-3 md:justify-start">
+            <Image src="/images/brand/np-logo.png" alt="" width={40} height={40} className="size-10 shrink-0" />
+            <p lang="en" className="text-xl font-bold tracking-[.12em] text-primary">NET PISOTH</p>
+          </div>
           <p className="mt-2 text-xs leading-6 text-muted-foreground">{copy.footer}</p>
         </div>
         <nav aria-label={locale === "km" ? "តំណភ្ជាប់នៅបាតទំព័រ" : "Footer navigation"} className="flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm font-medium">
